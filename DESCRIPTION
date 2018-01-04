@@ -1,0 +1,18 @@
+Package: mcsstry3
+Type: Package
+Title: Runs MCSS on curated Hansch library
+Version: 0.1.0
+Author: Michaela Koopmans, koopmans.michaela@epa.gov; Jay Patel, patel.jay@epa.gov; John Olmstead, olmstead.john@epa.gov
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+Imports: 
+    ChemmineOB <= (1.16.2)
+    ChemmineR <= (2.30.0)
+    fmcsR <= (1.20.0)
+    jsonlite <= (1.5)
+    readr <= (1.1.1)
+    RSQLite <= (2.0)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
