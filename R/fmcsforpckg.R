@@ -39,5 +39,6 @@ fmcsforpckg <- function(sampleSDF) {
     }
   else {
     print("No similar matches were found.")
+    print(paste("Original Fragment SMILES: ", samplesmi))
   }
 }
