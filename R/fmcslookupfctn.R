@@ -36,16 +36,13 @@ fmcslookupfctn <- function(sampleSDF) {
     outdf <- data.frame(matrix(unlist(char), nrow=1, byrow=T)) #Converts list into usable output format as a dataframe
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
-    #print(paste("MCSS Match SMILES: ", smiles))
-    #print(paste("Tanimoto Index: ", Tanimoto))
-    #print(paste("Sigma Value: ", sigma))
-    #print(paste("Sigma Meta Value: ", sigma.meta))
-    #print(paste("Sigma Para Value: ", sigma.para)) #Prints relevant outputs
     outmcs <- fmcsR::fmcs(MCS, sampleSDF[1]) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
     fmcsR::plotMCS(outmcs) #Visualizes the original fragment and match molecules and highlights the similar substructure
     jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON containing the output values dataframe for use in CTS
     }
   else {
-    print("No similar matches were found.")
+    nomatch = "No similar matches were found."
+    print(nomatch)
+    jsonlite::write_json(nomatch, "output-nomatch.json", complex = "string")
   }
 }
