@@ -36,16 +36,16 @@ fmcslookupfctn <- function(sampleSDF) {
     outdf <- data.frame(matrix(unlist(char), nrow = 1, byrow = T)) #Converts list into usable output format as a dataframe
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
-    outmcs <- fmcsR::fmcs(MCS, sampleSDF[1]) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
+    outmcs <- fmcsR::fmcs(MCS, sampleSDF) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
     fmcsR::plotMCS(outmcs) #Visualizes the original fragment and match molecules and highlights the similar substructure
     jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON containing the output values dataframe for use in CTS
     }
   else {
-    NoMatch = "No similar matches were found."
-    print(NoMatch)
-    OutNoMatch <- c(NoMatch, as.character(samplesmi))
+    NoMatch = "No similar matches were found." #Creates error message
+    print(NoMatch) #Prints error message to console
+    OutNoMatch <- c(NoMatch, as.character(samplesmi)) #Starts creating dataframe to put error message into output JSON
     nomatchDF <- data.frame(matrix(unlist(OutNoMatch), nrow=1, byrow = T))
     colnames(nomatchDF) = c("No Match Found", "Original Fragment SMILES")
-    jsonlite::write_json(nomatchDF, "output-nomatch.json", dataframe = "columns")
+    jsonlite::write_json(nomatchDF, "output-nomatch.json", dataframe = "columns") #Outputs error message in JSON format
   }
 }
