@@ -36,7 +36,7 @@ fmcslookupfctn <- function(sampleSDF) {
     outdf <- data.frame(matrix(unlist(char), nrow = 1, byrow = T)) #Converts list into usable output format as a dataframe
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
-    outmcs <- fmcsR::fmcs(MCS, sampleSDF) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
+    outmcs <- fmcsR::fmcs(sampleSDF[1], MCS) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
     fmcsR::plotMCS(outmcs) #Visualizes the original fragment and match molecules and highlights the similar substructure
     jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON containing the output values dataframe for use in CTS
     }
