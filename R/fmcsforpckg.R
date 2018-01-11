@@ -42,7 +42,7 @@ fmcsforpckg <- function(sampleSDF) {
     print(paste("Sigma Value: ", sigma))
     print(paste("Sigma Meta Value: ", sigma.meta))
     print(paste("Sigma Para Value: ", sigma.para)) #Prints relevant outputs
-    write.csv(outdf, "fmcs-output.csv") #Writes outdf to an output .csv file
+    write.csv(outdf, "mcss-output.csv") #Writes outdf to an output .csv file
     }
   else {
     print("No similar matches were found.") #Prints error message to console
