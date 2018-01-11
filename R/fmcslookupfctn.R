@@ -28,13 +28,13 @@ fmcslookupfctn <- function(sampleSDF) {
 
   if (Tanimoto > 0.7){
     smiles <- ChemmineR::sdf2smiles(MCS[1]) #Stores the best match molecule in SMILES format
-    smilesCHAR <- as.character(smiles) #
-    names(smilesCHAR) = "MCSS Match Structure" #
-    matchSDF <- ChemmineR::smiles2sdf(smilesCHAR) #
-    fragSMI <- ChemmineR::sdf2smiles(sampleSDF[1]) #
-    fragCHAR <- as.character(fragSMI) #
-    names(fragCHAR) = "Original Fragment Structure" #
-    fragSDF <- ChemmineR::smiles2sdf(fragCHAR) #
+    smilesCHAR <- as.character(smiles) #Converts match molecule to character string for editing
+    names(smilesCHAR) = "MCSS Match Structure" #Changes name of match molecule character vector to appropriate label for use in plotMCS
+    matchSDF <- ChemmineR::smiles2sdf(smilesCHAR) #Converts renamed match molecule vector back to SDF for use in plotMCS
+    fragSMI <- ChemmineR::sdf2smiles(sampleSDF[1]) #Converts original fragment to SMIset format
+    fragCHAR <- as.character(fragSMI) #Converts original fragment to character string for editing
+    names(fragCHAR) = "Original Fragment Structure" #Changes name of original fragment character vector to appropriate label for use in plotMCS
+    fragSDF <- ChemmineR::smiles2sdf(fragCHAR) #Converts renamed original fragment vector back to SDF for use in plotMCS
     outmcs <- fmcsR::fmcs(fragSDF, matchSDF) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
     fmcsR::plotMCS(outmcs) #Visualizes the original fragment and match molecules and highlights the similar substructure
     ChemmineR::write.SMI(smiles, file = "smiles.smi") #Creates output SMILES file for the match molecule
@@ -45,14 +45,14 @@ fmcslookupfctn <- function(sampleSDF) {
     outdf <- data.frame(matrix(unlist(char), nrow = 1, byrow = T)) #Converts list into usable output format as a dataframe
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
-    jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON containing the output values dataframe for use in CTS
+    jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON file containing the output values dataframe for use in CTS
     }
   else {
     NoMatch = "No similar matches were found." #Creates error message
     print(NoMatch) #Prints error message to console
     OutNoMatch <- c(NoMatch, as.character(samplesmi)) #Starts creating dataframe to put error message into output JSON
-    nomatchDF <- data.frame(matrix(unlist(OutNoMatch), nrow=1, byrow = T))
-    colnames(nomatchDF) = c("No Match Found", "Original Fragment SMILES")
+    nomatchDF <- data.frame(matrix(unlist(OutNoMatch), nrow=1, byrow = T)) #Creates dataframe
+    colnames(nomatchDF) = c("No Match Found", "Original Fragment SMILES") #Gives dataframe column names
     jsonlite::write_json(nomatchDF, "output-nomatch.json", dataframe = "columns") #Outputs error message in JSON format
   }
 }

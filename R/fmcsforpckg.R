@@ -20,13 +20,13 @@ fmcsforpckg <- function(sampleSDF) {
   
   if (Tanimoto > 0.7){
     smiles <- ChemmineR::sdf2smiles(MCS[1]) #Stores the best match molecule in SMILES format
-    smilesCHAR <- as.character(smiles) #
-    names(smilesCHAR) = "MCSS Match Structure" #
-    matchSDF <- ChemmineR::smiles2sdf(smilesCHAR) #
-    fragSMI <- ChemmineR::sdf2smiles(sampleSDF[1]) #
-    fragCHAR <- as.character(fragSMI) #
-    names(fragCHAR) = "Original Fragment Structure" #
-    fragSDF <- ChemmineR::smiles2sdf(fragCHAR) #
+    smilesCHAR <- as.character(smiles) #Converts match molecule to character string for editing
+    names(smilesCHAR) = "MCSS Match Structure" #Changes name of match molecule character vector to appropriate label for use in plotMCS
+    matchSDF <- ChemmineR::smiles2sdf(smilesCHAR) #Converts renamed match molecule vector back to SDF for use in plotMCS
+    fragSMI <- ChemmineR::sdf2smiles(sampleSDF[1]) #Converts original fragment to SMIset format
+    fragCHAR <- as.character(fragSMI) #Converts original fragment to character string for editing
+    names(fragCHAR) = "Original Fragment Structure" #Changes name of original fragment character vector to appropriate label for use in plotMCS
+    fragSDF <- ChemmineR::smiles2sdf(fragCHAR) #Converts renamed original fragment vector back to SDF for use in plotMCS
     outmcs <- fmcsR::fmcs(fragSDF, matchSDF) #Runs MCS between match molecule and original fragment to get the output information in MCS format for use in the plotMCS visualization function
     fmcsR::plotMCS(outmcs) #Visualizes the original fragment and match molecules and highlights the similar substructure
     ChemmineR::write.SMI(smiles, file = "smiles.smi") #Creates output SMILES file for the match molecule
@@ -42,10 +42,10 @@ fmcsforpckg <- function(sampleSDF) {
     print(paste("Sigma Value: ", sigma))
     print(paste("Sigma Meta Value: ", sigma.meta))
     print(paste("Sigma Para Value: ", sigma.para)) #Prints relevant outputs
-    write.csv(outdf, "fmcs-output.csv") #Writes outdf to an output file
+    write.csv(outdf, "fmcs-output.csv") #Writes outdf to an output .csv file
     }
   else {
-    print("No similar matches were found.")
-    print(paste("Original Fragment SMILES: ", samplesmi))
+    print("No similar matches were found.") #Prints error message to console
+    print(paste("Original Fragment SMILES: ", samplesmi)) #Prints original fragment SMILES to console as a reminder
   }
 }
