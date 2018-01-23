@@ -43,16 +43,16 @@ fmcslookupfctn <- function(sampleSDF) {
     sigma.para <- RSQLite::dbGetQuery(lookupdb2, 'SELECT "sigma.para" FROM testlookup2 WHERE "ID" == :z', params = list(z = Index))
     char <- c(as.character(samplesmi), as.character(smiles), as.character(Tanimoto), as.character(sigma), as.character(sigma.meta), as.character(sigma.para)) #Creates list of output values
     outdf <- data.frame(matrix(unlist(char), nrow = 1, byrow = T)) #Converts list into usable output format as a dataframe
-    colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
+    colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Match Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
     jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON file containing the output values dataframe for use in CTS
     }
   else {
-    NoMatch = "No similar matches were found." #Creates error message
-    print(NoMatch) #Prints error message to console
-    OutNoMatch <- c(NoMatch, as.character(samplesmi)) #Starts creating dataframe to put error message into output JSON
+    NoMatch = "No similar matches were found. The closest structure available is given." #Creates error message
+    closest <- ChemmineR::sdf2smiles(MCS[1]) #Stores the closest MCSS match SMILES
+    OutNoMatch <- c(NoMatch, as.character(samplesmi), as.character(closest), as.character(Tanimoto)) #Starts creating dataframe to put error message into output JSON
     nomatchDF <- data.frame(matrix(unlist(OutNoMatch), nrow=1, byrow = T)) #Creates dataframe
-    colnames(nomatchDF) = c("No Match Found", "Original Fragment SMILES") #Gives dataframe column names
+    colnames(nomatchDF) = c("No Match Found", "Original Fragment SMILES", "Closest Match SMILES", "Tanimoto Match Index") #Gives dataframe column names
     jsonlite::write_json(nomatchDF, "output-nomatch.json", dataframe = "columns") #Outputs error message in JSON format
   }
 }

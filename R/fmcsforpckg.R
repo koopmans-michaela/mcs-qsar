@@ -38,14 +38,17 @@ fmcsforpckg <- function(sampleSDF) {
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(paste("Original Fragment SMILES: ", samplesmi))
     print(paste("MCSS Match SMILES: ", smiles))
-    print(paste("Tanimoto Index: ", Tanimoto))
+    print(paste("Tanimoto Match Index: ", Tanimoto))
     print(paste("Sigma Value: ", sigma))
     print(paste("Sigma Meta Value: ", sigma.meta))
     print(paste("Sigma Para Value: ", sigma.para)) #Prints relevant outputs
     write.csv(outdf, "mcss-output.csv") #Writes outdf to an output .csv file
     }
   else {
-    print("No similar matches were found.") #Prints error message to console
+    closest <- ChemmineR::sdf2smiles(MCS[1]) #Stores the closest MCSS match SMILES
+    print("No similar matches were found. The closest structure available is given") #Prints error message to console
     print(paste("Original Fragment SMILES: ", samplesmi)) #Prints original fragment SMILES to console as a reminder
-  }
+    print(paste("Closest Match SMILES: ", as.character(closest))) #Prints closest match molecule's SMILES to console
+    print(paste("Tanimoto Match Index: ", Tanimoto))
+    }
 }

@@ -1,1 +1,1 @@
-{"Error Message":["No similar matches were found."],"Original Fragment SMILES":["Clc1ccc2cccc(*)c2c1"]}
+{"No Match Found":["No similar matches were found. The closest structure available is given."],"Original Fragment SMILES":["CCC(C)C(S)CF"],"Closest Match SMILES":["*CC1CCCCC1"],"Tanimoto Match Index":["0.6"]}
