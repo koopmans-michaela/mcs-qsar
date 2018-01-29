@@ -1,1 +1,1 @@
-{"No Match Found":["No similar matches were found. The closest structure available is given."],"Original Fragment SMILES":["CCC(C)C(S)CF"],"Closest Match SMILES":["*CC1CCCCC1"],"Tanimoto Match Index":["0.6"]}
+{"Error":["Error"],"No Match Found":["No similar matches were found. The closest structure available is given."],"Original Fragment SMILES":["CSC(=N*)C"],"Closest Match SMILES":["CSC*"],"Tanimoto Match Index":["0.428571428571429"]}

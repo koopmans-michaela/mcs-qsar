@@ -1,7 +1,7 @@
 fmcsforpckg <- function(sampleSDF) {
   MCS = batchfull[1] #Loads comparison library
   Tanimoto = 0
-  Index = 0 #Sets up variables Tanimoto, and Index
+  Index = 0 #Sets up variables Tanimoto Match Value and Index Number
   samplesmi = ChemmineR::sdf2smiles(sampleSDF) #Converts sample fragment from SDF to SMILES to be used in the output dataframe
   for(i in 1:300)
   {

@@ -1,0 +1,12 @@
+{
+    "fragments": [
+        "C*",
+        "CSC(C)=N*",
+        "CNC(=O)ON=C(C)SC"
+    ],
+    "pathways": [
+        "Carbamate_R2_Taft (Aliphatic)",
+        "Carbamate_R3_Hammett Meta 2 (Aromatic)",
+        "Parent"
+    ]
+}
