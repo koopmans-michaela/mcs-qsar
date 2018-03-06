@@ -46,8 +46,7 @@ fmcslookupfctn <- function(sampleSDF) {
     colnames(outdf) = c("Original Fragment SMILES","MCSS Match SMILES", "Tanimoto Match Index", "Sigma Value", "Sigma Meta Value", "Sigma Para Value") #Creates column labels for the dataframe
     print(outdf) #Shows output values in console
     jsonlite::write_json(outdf, "output-json.json", dataframe = "columns") #Writes a JSON file containing the output values dataframe for use in CTS
-    }
-  else {
+  }  else {
     NoMatch = "No similar matches were found. The closest structure available is given." #Creates error message
     closest <- ChemmineR::sdf2smiles(MCS[1]) #Stores the closest MCSS match SMILES
     OutNoMatch <- c(NoMatch, as.character(samplesmi), as.character(closest), as.character(Tanimoto)) #Starts creating dataframe to put error message into output JSON
