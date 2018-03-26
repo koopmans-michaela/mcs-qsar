@@ -3,3 +3,11 @@
 .RData
 .Ruserdata
 packrat/lib*/
+convertedSMILES-meta.csv
+convertedSMILES-ortho.csv
+convertedSMILES-para.csv
+convertedSMILES-regular.csv
+smiles-meta.csv
+smiles-ortho.csv
+smiles-para.csv
+smiles-regular.csv
